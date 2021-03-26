@@ -22,6 +22,13 @@ import expo.modules.constants.ConstantsPackage;
 import expo.modules.permissions.PermissionsPackage;
 import expo.modules.filesystem.FileSystemPackage;
 import expo.modules.updates.UpdatesController;
+import com.moengage.react.MoEReactPackage;
+import com.moengage.core.MoEngage;
+
+import com.moengage.core.config.LogConfig;
+
+import com.moe.pushlibrary.MoEHelper;
+import com.moengage.react.MoEInitializer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -37,6 +44,12 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
+    }
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(), new MoEReactPackage());
     }
 
     @Override
@@ -79,6 +92,12 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    MoEngage.Builder moEngage =
+        new MoEngage.Builder(this, "GKU3VBEPJG0O5AL3YBX8IS73")
+        // .optOutTokenRegistration()
+        .enableLogs(LogLevel.VERBOSE);
+    MoEInitializer.INSTANCE.initialize(getApplicationContext(), moEngage);
 
     if (!BuildConfig.DEBUG) {
       UpdatesController.initialize(this);

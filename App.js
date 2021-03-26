@@ -1,11 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Platform } from 'react-native';
+
+import ReactMoE from 'react-native-moengage'
 
 export default function App() {
+
+  useEffect(() => {
+    ReactMoE.initialize();
+  }, [])
+
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Hello World</Text>
       <StatusBar style="auto" />
     </View>
   );
